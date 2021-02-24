@@ -1,0 +1,24 @@
+<html>
+<head>
+  <title></title>
+  </head>
+  <body>
+    <p id='out'></p>
+    <script type="text/javascript" charset="utf-8">
+
+// ASK for permision
+var constraints = { audio: true };
+
+navigator.mediaDevices.getUserMedia(constraints)
+.then(function(mediaStream) {
+  var video = document.querySelector('video');
+  video.srcObject = mediaStream;
+  video.onloadedmetadata = function(e) {
+    video.play();
+  };
+})
+.catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+    </script>
+  </body>
+</html>

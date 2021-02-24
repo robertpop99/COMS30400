@@ -1,0 +1,69 @@
+<html>
+<head>
+  <title></title>
+  </head>
+  <body>
+    <p id='out'></p>
+    <script type="text/javascript" charset="utf-8">
+    (function(global){
+
+      var analyser;
+
+      // Feature detection
+      // http://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-featuredecting
+      function hasGetUserMedia() {
+        // Note: Opera is unprefixed.
+        return !!(navigator.getUserMedia || navigator.webkitGetUserMedia ||
+                  navigator.mozGetUserMedia || navigator.msGetUserMedia);
+      }
+
+      // Using getUserMedia with the Web Audio API
+      // http://www.html5rocks.com/en/tutorials/getusermedia/intro/#toc-webaudio-api
+      // http://updates.html5rocks.com/2012/09/Live-Web-Audio-Input-Enabled
+      function gotStream(stream) {
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        var audioContext = new AudioContext();
+
+        // Create an AudioNode from the stream.
+        var mediaStreamSource = audioContext.createMediaStreamSource( stream );
+
+        // Connect it to the destination to hear yourself (or any other node for processing!)
+        mediaStreamSource.connect( audioContext.destination );
+
+        // analyser
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 1024;
+
+        // pipe
+        mediaStreamSource.connect(analyser);
+
+      }
+
+      if (hasGetUserMedia()) {
+        // Good to go!
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
+        navigator.getUserMedia( {audio:true}, gotStream );
+
+        var out = document.getElementById("out");
+        setInterval(function(){
+          if(analyser){
+            var data = new Uint8Array(256);
+            analyser.getByteFrequencyData(data);
+            for(var i = 0; i < 256; ++i) {
+
+              // Do some stuff here
+              if(data[i] > 0) {
+                out.innerText = data[i];
+                var color = "rgb(" + data[i] + "%," + data[i] + "%," + data[i] + "%)";
+                document.getElementsByTagName('body')[0].style.backgroundColor = color;
+              }
+            }
+          }
+        },100);
+      } else {
+        alert('getUserMedia() is not supported in your browser');
+      }
+    })(window);
+    </script>
+  </body>
+</html>

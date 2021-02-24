@@ -1,0 +1,81 @@
+<html>
+<head>
+  <title></title>
+  </head>
+  <body>
+    <p id='out'></p>
+    <script type="text/javascript" charset="utf-8">
+
+        // START - used to read the volume
+        document.volume = 0;
+        var byteOffset = 0;
+        var length = 1024;
+        this.buffer = new ArrayBuffer(4 * length);
+        document.dataArray = new Float32Array(this.buffer, byteOffset, length);
+        // END - used to read the volume        
+
+        var constraints = { audio: true };
+
+        navigator.mediaDevices.getUserMedia(constraints)
+        .then(function(mediaStream) {
+          document.position = 0;
+
+          document.audioContext = new AudioContext();
+          document.tempSize = 1024;
+          document.tempArray = new Float32Array(document.tempSize)
+          document.analyser = document.audioContext.createAnalyser();
+          document.analyser.minDecibels = -90;
+          document.analyser.maxDecibels = -10;
+          document.analyser.smoothingTimeConstant = 0.85;
+
+          document.mediaRecorder = new MediaRecorder(mediaStream);
+
+          document.source = document.audioContext.createMediaStreamSource(mediaStream);
+
+          document.source.connect(document.analyser);
+
+          document.mediaRecorder.start();
+          console.log(document.mediaRecorder.state);
+
+          document.readDataOnInterval = function() {
+
+            if (document.dataArray == undefined) {
+              setTimeout(document.readDataOnInterval, 250); //wait to be set
+              return;
+            }
+
+            document.tempInterval = Math.floor(document.tempSize / document.dataArray.length * 250);
+
+            // read the next chunk after interval
+            setTimeout(document.readDataOnInterval, document.tempInterval); //if mic is still active
+
+            if (document.dataArray == undefined) {
+              return;
+            }
+
+            //read the temp data buffer
+            document.analyser.getFloatTimeDomainData(document.tempArray);
+
+            // use the amplitude to get volume
+            document.volume = 0;
+
+            var j = (document.position + document.dataArray.length - document.tempSize) % document.dataArray.length;
+            for (var i = 0; i < document.tempSize; ++i) {
+              document.volume = Math.max(document.volume, Math.abs(document.tempArray[i]));
+              document.dataArray[j] = document.tempArray[i];
+              j = (j + 1) % document.dataArray.length;
+            }
+            document.position = (document.position + document.tempSize) % document.dataArray.length;
+            
+            console.log(document.dataArray);
+          };
+
+          document.readDataOnInterval();
+
+
+        })
+        .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+
+    </script>
+  </body>
+</html>
