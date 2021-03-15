@@ -40,7 +40,9 @@ public class SoundRipples : MonoBehaviourPun
             int length = Constants.RecordingTime * Constants.SampleRate;
             float[] data = new float[length];
 
-            audioClip.GetData(data, 0);
+            //audioClip.GetData(data, 0);
+            // possible faster but really hard to make sure 
+            CustomMicrophone.GetRawData(ref data, audioClip);
 
             if (currentPosition > _lastPosition)
             {
