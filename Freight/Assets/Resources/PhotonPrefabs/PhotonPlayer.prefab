@@ -5095,6 +5095,7 @@ GameObject:
   - component: {fileID: 5117754177564587223}
   - component: {fileID: 2910082029952603841}
   - component: {fileID: 7608896845619429650}
+  - component: {fileID: 1297344346457650070}
   m_Layer: 8
   m_Name: PhotonPlayer
   m_TagString: Player
@@ -5498,7 +5499,7 @@ MonoBehaviour:
   unityMicrophoneDevice: Microphone (Realtek High Definition Audio)
   photonMicrophoneDeviceId: 0
   interestGroup: 0
-  debugEchoMode: 1
+  debugEchoMode: 0
   reliableMode: 0
   encrypt: 0
   transmitEnabled: 1
@@ -5534,7 +5535,21 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7980832976051256633}
+  m_Enabled: 0
+--- !u!114 &1297344346457650070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980832976051256633}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cc7d8687b4b6a1438f6a04904495513, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recorder: {fileID: 2910082029952603841}
+  audioListener: {fileID: 7608896845619429650}
 --- !u!1 &7980832976756422580
 GameObject:
   m_ObjectHideFlags: 0

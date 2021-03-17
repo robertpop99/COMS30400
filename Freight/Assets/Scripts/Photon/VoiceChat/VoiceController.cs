@@ -8,8 +8,12 @@ public class VoiceController : MonoBehaviourPun
 {
 
     public Recorder recorder;
+    public AudioListener audioListener;
     void Start()
     {
-        //recorder.InterestGroup = (byte) PhotonNetwork.CurrentRoom.GetHashCode();
+        if (!photonView.IsMine) return;
+
+        audioListener.enabled = true;
+        recorder.InterestGroup = (byte) PhotonNetwork.CurrentRoom.GetHashCode();
     }
 }
