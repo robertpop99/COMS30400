@@ -412,12 +412,10 @@ namespace Photon.Voice.Unity
                         this.Logger.LogInfo("\"{0}\" is not a valid Unity microphone device, switching to default", this.unityMicrophoneDevice);
                     }
                     this.unityMicrophoneDevice = null;
-                    #if !UNITY_WEBGL
                     if (UnityMicrophone.devices.Length > 0)
                     {
                         this.unityMicrophoneDevice = UnityMicrophone.devices[0];
                     }
-                    #endif
                 }
                 return this.unityMicrophoneDevice;
             }
@@ -434,12 +432,10 @@ namespace Photon.Voice.Unity
                 if (!CompareUnityMicNames(this.unityMicrophoneDevice, value))
                 {
                     this.unityMicrophoneDevice = value;
-                    #if !UNITY_WEBGL
                     if (string.IsNullOrEmpty(this.unityMicrophoneDevice) && UnityMicrophone.devices.Length > 0)
                     {
                         this.unityMicrophoneDevice = UnityMicrophone.devices[0];
                     }
-                    #endif
                     if (this.IsRecording && this.SourceType == InputSourceType.Microphone && this.MicrophoneType == MicType.Unity)
                     {
                         this.RequiresRestart = true;
@@ -1246,13 +1242,6 @@ namespace Photon.Voice.Unity
                     {
                         case MicType.Unity:
                         {
-                            #if UNITY_WEBGL
-                            if (this.Logger.IsInfoEnabled)
-                            {
-                                this.Logger.LogInfo("Unity Microphone not supported in WebGL, Photon Voice 2 does not support WebGL but we made sure code compiles for WebGL at least.");
-                            }
-                            return LocalVoiceAudioDummy.Dummy;
-                            #else
                             if (UnityMicrophone.devices.Length < 1)
                             {
                                 if (this.Logger.IsErrorEnabled)
@@ -1302,7 +1291,7 @@ namespace Photon.Voice.Unity
                                 goto case MicType.Photon;
                             }
                             #endif
-                            #endif
+                            //#endif
                         }
                             break;
                         case MicType.Photon:
@@ -1734,20 +1723,12 @@ namespace Photon.Voice.Unity
 
         public static bool IsDefaultUnityMic(string mic)
         {
-            #if UNITY_WEBGL
-            return false;
-            #else
             return string.IsNullOrEmpty(mic) || Array.IndexOf(UnityMicrophone.devices, mic) == 0;
-            #endif
         }
 
         private static bool IsValidUnityMic(string mic)
         {
-            #if UNITY_WEBGL
-            return false;
-            #else
             return string.IsNullOrEmpty(mic) || UnityMicrophone.devices.Contains(mic);
-            #endif
         }
 
         private void OnEnable()

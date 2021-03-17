@@ -104,18 +104,18 @@ MonoBehaviour:
   unityMicrophoneDevice: Microphone (Realtek High Definition Audio)
   photonMicrophoneDeviceId: 0
   interestGroup: 0
-  debugEchoMode: 0
+  debugEchoMode: 1
   reliableMode: 0
-  encrypt: 1
-  transmitEnabled: 0
-  samplingRate: 24000
+  encrypt: 0
+  transmitEnabled: 1
+  samplingRate: 48000
   frameDuration: 20000
   bitrate: 30000
   sourceType: 0
   microphoneType: 0
   audioClip: {fileID: 0}
   loopAudioClip: 1
-  reactOnSystemChanges: 0
+  reactOnSystemChanges: 1
   autoStart: 1
   audioSessionParameters:
     Category: 4
@@ -145,3 +145,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc7d8687b4b6a1438f6a04904495513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recorder: {fileID: 8880357561718827142}

@@ -9,7 +9,7 @@ namespace Photon.Voice.Unity.Demos.DemoVoiceUI
     using UnityEngine;
     using UnityEngine.Serialization;
     using UnityEngine.UI;
-
+    using FrostweepGames.Plugins.Native;
 
     public struct MicRef
     {
@@ -72,12 +72,21 @@ namespace Photon.Voice.Unity.Demos.DemoVoiceUI
             this.micOptions = new List<MicRef>();
             List<string> micOptionsStrings = new List<string>();
 
-            for(int i=0; i < Microphone.devices.Length; i++)
+            #if UNITY_WEBGL
+            for (int i=0; i < CustomMicrophone.devices.Length; i++)
+            {
+                string x = CustomMicrophone.devices[i];
+                this.micOptions.Add(new MicRef(x));
+                micOptionsStrings.Add(string.Format("[Unity] {0}", x));
+            }
+            #else
+            for (int i=0; i < Microphone.devices.Length; i++)
             {
                 string x = Microphone.devices[i];
                 this.micOptions.Add(new MicRef(x));
                 micOptionsStrings.Add(string.Format("[Unity] {0}", x));
             }
+            #endif
 
             #if PHOTON_MICROPHONE_ENUMERATOR
             if (Recorder.PhotonMicrophoneEnumerator.IsSupported)

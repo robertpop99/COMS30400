@@ -1,23 +1,25 @@
 ﻿namespace Photon.Voice.Unity
 {
-    #if UNITY_WEBGL
-    using System;
-    #endif
     using UnityEngine;
+    using Photon.WebGl.Plugin;
 
     /// <summary>A wrapper around UnityEngine.Microphone to be able to safely use Microphone and compile for WebGL.</summary>
     public static class UnityMicrophone
     {
-        #if UNITY_WEBGL
-        private static readonly string[] _devices = new string[0];
-        #endif
-
         public static string[] devices
         {
             get
             {
                 #if UNITY_WEBGL
-                return _devices;
+                if(!CustomMicrophone.HasMicrophonePermission())
+                {
+                    CustomMicrophone.RequestMicrophonePermission();
+                }
+                if(CustomMicrophone.devices.Length < 1)
+                {
+                    CustomMicrophone.RefreshMicrophoneDevices();
+                }
+                return CustomMicrophone.devices;
                 #else
                 return Microphone.devices;
                 #endif
@@ -27,7 +29,7 @@
         public static void End(string deviceName)
         {
             #if UNITY_WEBGL
-            throw new NotImplementedException("Unity Microphone not supported on WebGL");
+            CustomMicrophone.End(deviceName);
             #else
             Microphone.End(deviceName);
             #endif
@@ -36,7 +38,7 @@
         public static void GetDeviceCaps(string deviceName, out int minFreq, out int maxFreq)
         {
             #if UNITY_WEBGL
-            throw new NotImplementedException("Unity Microphone not supported on WebGL");
+            CustomMicrophone.GetDeviceCaps(deviceName, out minFreq, out maxFreq);
             #else
             Microphone.GetDeviceCaps(deviceName, out minFreq, out maxFreq);
             #endif
@@ -45,7 +47,7 @@
         public static int GetPosition(string deviceName)
         {
             #if UNITY_WEBGL
-            throw new NotImplementedException("Unity Microphone not supported on WebGL");
+            return CustomMicrophone.GetPosition(deviceName);
             #else
             return Microphone.GetPosition(deviceName);
             #endif
@@ -54,7 +56,7 @@
         public static bool IsRecording(string deviceName)
         {
             #if UNITY_WEBGL
-            return false;
+            return CustomMicrophone.IsRecording(deviceName);
             #else
             return Microphone.IsRecording(deviceName);
             #endif
@@ -63,7 +65,7 @@
         public static AudioClip Start(string deviceName, bool loop, int lengthSec, int frequency)
         {
             #if UNITY_WEBGL
-            throw new NotImplementedException("Unity Microphone not supported on WebGL");
+            return CustomMicrophone.Start(deviceName, loop, lengthSec, frequency);
             #else
             return Microphone.Start(deviceName, loop, lengthSec, frequency);
             #endif

@@ -2,20 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Voice.Unity;
 
 public class VoiceController : MonoBehaviourPun
 {
 
-
-    // Start is called before the first frame update
+    public Recorder recorder;
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //recorder.InterestGroup = (byte) PhotonNetwork.CurrentRoom.GetHashCode();
     }
 }

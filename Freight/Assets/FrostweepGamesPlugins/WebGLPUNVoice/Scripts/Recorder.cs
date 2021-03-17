@@ -154,6 +154,7 @@ namespace FrostweepGames.WebGLPUNVoice
 		public void RefreshMicrophones()
 		{
 			CustomMicrophone.RequestMicrophonePermission();
+			CustomMicrophone.RefreshMicrophoneDevices();
 		}
 
 		/// <summary>
