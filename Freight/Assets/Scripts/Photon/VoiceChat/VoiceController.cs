@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Voice.Unity;
+using Photon.Voice.PUN;
 
 public class VoiceController : MonoBehaviourPun
 {
 
-    public Recorder recorder;
     public AudioListener audioListener;
     void Start()
     {
         if (!photonView.IsMine) return;
 
-        recorder.enabled = true;
         audioListener.enabled = true;
-        recorder.InterestGroup = (byte) PhotonNetwork.CurrentRoom.GetHashCode();
+        byte newInterestGroup = (byte) PhotonNetwork.CurrentRoom.GetHashCode();
+        PhotonVoiceNetwork.Instance.Client.GlobalInterestGroup = newInterestGroup;
     }
 }

@@ -22300,7 +22300,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 446246918}
-  - component: {fileID: 446246919}
   m_Layer: 15
   m_Name: Fences
   m_TagString: Untagged
@@ -22322,18 +22321,6 @@ Transform:
   m_Father: {fileID: 542339569}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &446246919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446246917}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d6acab16a981b42b71571425c310bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &450401795
 GameObject:
   m_ObjectHideFlags: 0
@@ -91818,7 +91805,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1764472562}
-  - component: {fileID: 1764472563}
   m_Layer: 0
   m_Name: Trains
   m_TagString: Untagged
@@ -91840,18 +91826,6 @@ Transform:
   m_Father: {fileID: 542339569}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1764472563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764472561}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea26645312149cc42bbd9d584d82ede7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1767019080
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -93616,7 +93590,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1832323092}
-  - component: {fileID: 1832323093}
   m_Layer: 15
   m_Name: Trees
   m_TagString: Untagged
@@ -93638,18 +93611,6 @@ Transform:
   m_Father: {fileID: 542339569}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1832323093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832323091}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d046bd375db1c5a42bce005dbca44ed8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1846707110
 GameObject:
   m_ObjectHideFlags: 0
@@ -110973,7 +110934,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2140653470}
-  - component: {fileID: 2140653471}
   m_Layer: 0
   m_Name: Poles
   m_TagString: Untagged
@@ -110995,18 +110955,6 @@ Transform:
   m_Father: {fileID: 542339569}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2140653471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140653469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edbb21eba251e384dbdd7925b2f67dd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2145673598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -112351,11 +112299,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NetworkManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 8813083805107906052, guid: b4b40e68695c10f4f9645b76634b195e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4b40e68695c10f4f9645b76634b195e, type: 3}

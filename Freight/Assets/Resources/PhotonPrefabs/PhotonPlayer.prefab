@@ -5088,14 +5088,12 @@ GameObject:
   - component: {fileID: 1584224160647717026}
   - component: {fileID: -8041433480325962717}
   - component: {fileID: 5704460574621402990}
-  - component: {fileID: 6582057755498782199}
-  - component: {fileID: 7302812998202872865}
   - component: {fileID: 7885452490087450227}
   - component: {fileID: 1794955737929454052}
   - component: {fileID: 5117754177564587223}
-  - component: {fileID: 2910082029952603841}
   - component: {fileID: 7608896845619429650}
   - component: {fileID: 1297344346457650070}
+  - component: {fileID: 7302812998202872865}
   m_Layer: 8
   m_Name: PhotonPlayer
   m_TagString: Player
@@ -5303,38 +5301,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickUpDestination: {fileID: 6652596242434911368}
   currentHeldItem: {fileID: 0}
---- !u!114 &6582057755498782199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980832976051256633}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92b4eac9bac98db4fb7aa4e388c6dd67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listener: {fileID: 257455286093060565}
-  recorder: {fileID: 7634450650693227252}
-  audioListener: {fileID: 357099665961887489}
-  minDistance: 1
-  maxDistance: 25
---- !u!114 &7302812998202872865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980832976051256633}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c06248ab68252046bd6e54e57a59c07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particles: {fileID: 504963560280851156}
-  recorder: {fileID: 7634450650693227252}
-  decibelsValue: 0
 --- !u!114 &7885452490087450227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5349,10 +5315,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logLevel: 3
   ignoreGlobalLogLevel: 0
-  recorderInUse: {fileID: 2910082029952603841}
+  recorderInUse: {fileID: 0}
   speakerInUse: {fileID: 5117754177564587223}
   AutoCreateRecorderIfNotFound: 0
-  UsePrimaryRecorder: 0
+  UsePrimaryRecorder: 1
   SetupDebugSpeaker: 0
 --- !u!82 &1794955737929454052
 AudioSource:
@@ -5479,55 +5445,6 @@ MonoBehaviour:
     MinDelaySoft: 200
     MaxDelaySoft: 400
     MaxDelayHard: 1000
---- !u!114 &2910082029952603841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7980832976051256633}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  logLevel: 3
-  ignoreGlobalLogLevel: 0
-  voiceDetection: 0
-  voiceDetectionThreshold: 0.01
-  voiceDetectionDelayMs: 500
-  unityMicrophoneDevice: Microphone (Realtek High Definition Audio)
-  photonMicrophoneDeviceId: 0
-  interestGroup: 0
-  debugEchoMode: 0
-  reliableMode: 0
-  encrypt: 0
-  transmitEnabled: 1
-  samplingRate: 48000
-  frameDuration: 20000
-  bitrate: 30000
-  sourceType: 0
-  microphoneType: 0
-  audioClip: {fileID: 0}
-  loopAudioClip: 1
-  reactOnSystemChanges: 1
-  autoStart: 1
-  audioSessionParameters:
-    Category: 4
-    Mode: 0
-    CategoryOptions: 0800000004000000
-  useCustomAudioSessionParameters: 0
-  audioSessionPresetIndex: 0
-  nativeAndroidMicrophoneSettings:
-    AcousticEchoCancellation: 0
-    AutomaticGainControl: 0
-    NoiseSuppression: 0
-  recordOnlyWhenEnabled: 0
-  skipDeviceChangeChecks: 0
-  stopRecordingWhenPaused: 0
-  useOnAudioFilterRead: 0
-  trySamplingRateMatch: 0
-  useMicrophoneTypeFallback: 1
 --- !u!81 &7608896845619429650
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5548,8 +5465,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc7d8687b4b6a1438f6a04904495513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recorder: {fileID: 2910082029952603841}
   audioListener: {fileID: 7608896845619429650}
+  speaker: {fileID: 5117754177564587223}
+--- !u!114 &7302812998202872865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7980832976051256633}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c06248ab68252046bd6e54e57a59c07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 504963560280851156}
+  recorder: {fileID: 7634450650693227252}
+  decibelsValue: 0
 --- !u!1 &7980832976756422580
 GameObject:
   m_ObjectHideFlags: 0
@@ -5664,24 +5596,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 770cef4903d510742b4bab88dc975b32, type: 3}
---- !u!4 &3010433264901784119 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3226476654477212135, guid: 770cef4903d510742b4bab88dc975b32,
+--- !u!1 &33678981502340898 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 393551136777434354, guid: 770cef4903d510742b4bab88dc975b32,
     type: 3}
   m_PrefabInstance: {fileID: 360721686930783184}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &257455286093060565 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 473757851317592581, guid: 770cef4903d510742b4bab88dc975b32,
-    type: 3}
-  m_PrefabInstance: {fileID: 360721686930783184}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33678981502340898}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 046a7347a93740943a8bd395bf81e297, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7634450650693227252 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7850493353477548324, guid: 770cef4903d510742b4bab88dc975b32,
@@ -5694,9 +5614,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 871db227761936c4982e00c060f15de6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &33678981502340898 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 393551136777434354, guid: 770cef4903d510742b4bab88dc975b32,
+--- !u!4 &3010433264901784119 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3226476654477212135, guid: 770cef4903d510742b4bab88dc975b32,
     type: 3}
   m_PrefabInstance: {fileID: 360721686930783184}
   m_PrefabAsset: {fileID: 0}
