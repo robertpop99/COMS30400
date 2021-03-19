@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using FrostweepGames.WebGLPUNVoice;
-using FrostweepGames.Plugins.Native;
+using Photon.Voice.PUN;
 using System.Linq;
+using Photon.Voice.Unity;
+using FrostweepGames.Plugins.Native;
 
 public class SoundRipples : MonoBehaviourPun
 {
     public ParticleSystem particles;
-    public Recorder recorder;
-
+    
     public float decibelsValue = 0f;
 
+    private AudioClip _clip;
     private int _lastPosition = 0;
     private string _microphoneDevice;
     private readonly float _updateFrequency = 0.25f;
@@ -24,6 +25,10 @@ public class SoundRipples : MonoBehaviourPun
 
         _microphoneDevice = CustomMicrophone.devices[0];
 
+        Recorder recorder = PhotonVoiceNetwork.Instance.PrimaryRecorder;
+
+        _clip = recorder.AudioClip;
+
         InvokeRepeating(nameof(UpdateRipples), 0, _updateFrequency);
     }
 
@@ -31,35 +36,26 @@ public class SoundRipples : MonoBehaviourPun
     {
         if (!photonView.IsMine) return;
 
-        AudioClip audioClip = recorder.AudioClip;
-
         int currentPosition = CustomMicrophone.GetPosition(_microphoneDevice);
 
         if(currentPosition != _lastPosition)
         {
-            int length = Constants.RecordingTime * Constants.SampleRate;
+            int length = (int) _clip.length * _clip.frequency;
             float[] data = new float[length];
-
-            //audioClip.GetData(data, 0);
-            // possible faster but really hard to make sure 
-            CustomMicrophone.GetRawData(ref data, audioClip);
 
             if (currentPosition > _lastPosition)
             {
-                var buffer = new List<float>();
-                buffer.AddRange(data.ToList().GetRange(_lastPosition, currentPosition - _lastPosition));
+                _clip.GetData(data, _lastPosition);
                 int len = currentPosition - _lastPosition;
-                decibelsValue = ComputeDB(buffer.ToArray(), 0, ref len);
+                decibelsValue = ComputeDB(data, 0, ref len);
                 _lastPosition = currentPosition;
             } 
             else
-            { 
-                var buffer = new List<float>();
-                buffer.AddRange(data.ToList().GetRange(_lastPosition, data.Length - _lastPosition));
-                buffer.AddRange(data.ToList().GetRange(0, currentPosition));
-                int len = data.Length - _lastPosition + currentPosition;
-                decibelsValue = ComputeDB(buffer.ToArray(), 0, ref len);
-                _lastPosition = currentPosition;
+            {
+                _clip.GetData(data, _lastPosition);
+                int len = data.Length - _lastPosition;
+                decibelsValue = ComputeDB(data, 0, ref len);
+                _lastPosition = 0;
             }
             //Debug.Log(decibelsValue);
             if (decibelsValue <= 0)
